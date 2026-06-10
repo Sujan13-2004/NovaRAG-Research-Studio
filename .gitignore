@@ -1,0 +1,24 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environment variables & secrets
+.env
+.env.*
+
+# Local virtual environment
+.venv/
+venv/
+ENV/
+env/
+
+# Streamlit local config and cache
+.streamlit/config.toml
+.streamlit/secrets.toml
+
+# Local dynamic runtime directories
+reports/
+report_val_*.pdf
+test_report.pdf
+*.pdf

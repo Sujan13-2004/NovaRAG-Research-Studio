@@ -1,0 +1,9 @@
+streamlit
+chromadb
+sentence-transformers
+flashrank
+google-generativeai
+reportlab
+pypdf
+python-dotenv
+plotly
