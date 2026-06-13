@@ -496,6 +496,33 @@ def generate_pdf_report(
             Paragraph(output_label, styles['TableCell']),
         ])
 
+        # Citation coverage metrics (from the new 3-tier scoring system)
+        citation_info = guardrail_results.get("citation_info")
+        if citation_info:
+            cov = citation_info.get("citation_coverage", 0.0)
+            cited = citation_info.get("total_citations", 0)
+            uncited = citation_info.get("uncited_sentences", 0)
+            total_sent = citation_info.get("total_sentences", 0)
+            invalid = citation_info.get("invalid_citations", [])
+            is_refusal = citation_info.get("is_refusal", False)
+
+            if is_refusal:
+                cov_label = "<font color='green'><b>N/A (Refusal)</b></font> (No factual claims requiring citations)"
+            else:
+                cov_color = "green" if cov >= 0.6 else "orange"
+                cov_label = (
+                    f"<font color='{cov_color}'><b>{cov:.1%}</b></font> "
+                    f"({total_sent - uncited}/{total_sent} sentences cited, "
+                    f"{cited} total citations)"
+                )
+                if invalid:
+                    cov_label += f" | <font color='red'>Invalid: {invalid}</font>"
+
+            audit_rows.append([
+                Paragraph("Citation Coverage", styles['TableCell']),
+                Paragraph(cov_label, styles['TableCell']),
+            ])
+
     audit_rows.append([
         Paragraph("Sources Consulted", styles['TableCell']),
         Paragraph(f"{num_sources} passages reranked", styles['TableCell']),

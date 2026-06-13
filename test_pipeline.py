@@ -97,7 +97,7 @@ def run_test():
     # 5. Test Output Guardrails (Hallucination check)
     print("\n--- Testing Output Guardrails (Groundedness check) ---")
     # Grounded text (should pass)
-    grounded_summary = "The final project is worth 20 marks and requires building an Enterprise-Grade RAG Workflow."
+    grounded_summary = "The final project is worth 20 marks and requires building an Enterprise-Grade RAG Workflow [1]."
     contexts = [c["text"] for c in result["raw_chunks"]]
     
     ok, reason, score = check_output_guardrail(grounded_summary, contexts)
